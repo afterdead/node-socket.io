@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const socketIO = require('socket.io')(server, { origins: '*:*' });
+const socketIO = require('socket.io');
 const path = require('path');
 var fileSystem = require("fs");
 
@@ -10,7 +10,8 @@ const PORT = 80;
 const INDEX = path.join(__dirname, 'index.html');
 const server = express()
     .use((req, res) => res.sendFile(INDEX))
-    .listen(PORT, () => console.log(`Listening on ${PORT}`));
+    .listen(PORT, () => console.log(`Listening on ${PORT}`))
+    .header("Access-Control-Allow-Origin", "*");
 
 const io = socketIO(server);
 var clientIP = null;
