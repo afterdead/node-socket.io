@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const socketIO = require('socket.io');
+const socketIO = require('socket.io')(server, { origins: '*:*' });
 const path = require('path');
 var fileSystem = require("fs");
 
@@ -15,6 +15,7 @@ const server = express()
 const io = socketIO(server);
 var clientIP = null;
 var allowIP = '10.32.1.210, 127.0.0.1';
+
 io.on('connection', (socket) => {
     clientIP = socket.request.connection.remoteAddress.toString().split(':');
     clientIP = clientIP[clientIP.length - 1];
