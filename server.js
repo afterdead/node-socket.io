@@ -9,9 +9,11 @@ var fileSystem = require("fs");
 const PORT = 80;
 const INDEX = path.join(__dirname, 'index.html');
 const server = express()
-    .use((req, res) => res.sendFile(INDEX))
+    .use((req, res) => {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.sendFile(INDEX);
+    })
     .listen(PORT, () => console.log(`Listening on ${PORT}`))
-    .header("Access-Control-Allow-Origin", "*");
 
 const io = socketIO(server);
 var clientIP = null;
